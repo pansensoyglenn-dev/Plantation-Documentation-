@@ -3163,5 +3163,24 @@ function printPlantationReport() {
     }, 500);
   }, 100);
 }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('✅ Service worker registered:', reg.scope);
+        reg.addEventListener('updatefound', () => {
+          const nw = reg.installing;
+          if (!nw) return;
+          nw.addEventListener('statechange', () => {
+            if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('🔄 New version ready — reload to apply.');
+              showToast('🔄 Update ready — refresh to apply', 'info', 6000);
+            }
+          });
+        });
+      })
+      .catch(err => console.warn('SW registration failed:', err));
+  });
+}
 
 console.log('🌱 Valley and Creeks Farm initialized');
