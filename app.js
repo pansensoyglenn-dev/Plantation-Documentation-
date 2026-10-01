@@ -4014,4 +4014,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-console.log('🌱 Valley and Creeks Farm initialized');
+console.log('🌱 Valley and Creeks Farm initialized v2');
